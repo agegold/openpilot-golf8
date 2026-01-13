@@ -89,6 +89,10 @@ class SelfdriveD(CruiseHelper):
     self.car_state_sock = messaging.sub_sock('carState', timeout=20)
 
     ignore = self.sensor_packets + self.gps_packets + ['alertDebug'] + ['modelDataV2SP']
+
+    self.camera_packets.remove("driverCameraState")
+    ignore += ['driverMonitoringState']
+    
     if SIMULATION:
       ignore += ['driverCameraState', 'managerState']
     if REPLAY:
